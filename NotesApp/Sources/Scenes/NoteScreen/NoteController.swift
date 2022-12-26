@@ -20,9 +20,9 @@ class NoteController: UIViewController {
 //		self.model = model
 //	}
 	
-	required init?(coder: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
-	}
+//	required init?(coder: NSCoder) {
+//		fatalError("init(coder:) has not been implemented")
+//	}
 	
 	override func loadView() {
 		view = NoteView(controller: self)
@@ -30,7 +30,7 @@ class NoteController: UIViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		title = Localization.title.rawValue
-		navigationController?.navigationBar.prefersLargeTitles = true
+//		title = Localization.title.rawValue
+//		navigationController?.navigationBar.prefersLargeTitles = false
 	}
 }

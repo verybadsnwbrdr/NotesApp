@@ -65,6 +65,7 @@ private extension MainController {
 	}
 	
 	func tapFor(_ row: IndexPath) {
-		
+//		guard let viewController = NoteController() else { return }
+		navigationController?.pushViewController(NoteController(), animated: true)
 	}
 }

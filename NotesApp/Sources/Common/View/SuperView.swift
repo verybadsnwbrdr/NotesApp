@@ -18,6 +18,7 @@ class SuperView: UIView {
 	init(controller: UIViewController) {
 		super.init(frame: .zero)
 		self.controller = controller
+		backgroundColor = .white
 		setupHierarchy()
 		setupLayout()
 	}
