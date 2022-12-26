@@ -6,3 +6,9 @@
 //
 
 import Foundation
+
+enum Localization: String {
+	case title = "Заметки"
+	
+	var string: String { rawValue }
+}
