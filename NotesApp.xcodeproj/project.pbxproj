@@ -24,6 +24,11 @@
 		3ACF06BC2959F968004DD16D /* NoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACF06BB2959F968004DD16D /* NoteView.swift */; };
 		3ACF06BE2959F979004DD16D /* NoteController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACF06BD2959F979004DD16D /* NoteController.swift */; };
 		3ACF06C32959FA4E004DD16D /* SuperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACF06C22959FA4E004DD16D /* SuperView.swift */; };
+		3ACF06C6295C7673004DD16D /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACF06C5295C7673004DD16D /* Note.swift */; };
+		3ACF06CA295C9006004DD16D /* NoteModelUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACF06C9295C9006004DD16D /* NoteModelUD.swift */; };
+		3ACF06CD295CA3C6004DD16D /* NoteModel+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACF06CB295CA3C6004DD16D /* NoteModel+CoreDataClass.swift */; };
+		3ACF06CE295CA3C6004DD16D /* NoteModel+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACF06CC295CA3C6004DD16D /* NoteModel+CoreDataProperties.swift */; };
+		3ACF06D0295CA475004DD16D /* NoteDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACF06CF295CA475004DD16D /* NoteDataManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +50,11 @@
 		3ACF06BB2959F968004DD16D /* NoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteView.swift; sourceTree = "<group>"; };
 		3ACF06BD2959F979004DD16D /* NoteController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteController.swift; sourceTree = "<group>"; };
 		3ACF06C22959FA4E004DD16D /* SuperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuperView.swift; sourceTree = "<group>"; };
+		3ACF06C5295C7673004DD16D /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
+		3ACF06C9295C9006004DD16D /* NoteModelUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteModelUD.swift; sourceTree = "<group>"; };
+		3ACF06CB295CA3C6004DD16D /* NoteModel+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NoteModel+CoreDataClass.swift"; sourceTree = "<group>"; };
+		3ACF06CC295CA3C6004DD16D /* NoteModel+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NoteModel+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		3ACF06CF295CA475004DD16D /* NoteDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteDataManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,7 +143,10 @@
 		3ACF06A32959E2B0004DD16D /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				3ACF06CB295CA3C6004DD16D /* NoteModel+CoreDataClass.swift */,
+				3ACF06CC295CA3C6004DD16D /* NoteModel+CoreDataProperties.swift */,
 				3ACF068D2959E130004DD16D /* NotesApp.xcdatamodeld */,
+				3ACF06CF295CA475004DD16D /* NoteDataManager.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -149,6 +162,8 @@
 		3ACF06A52959E4FC004DD16D /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				3ACF06B02959E62C004DD16D /* MainModel.swift */,
+				3ACF06C4295C7530004DD16D /* LocalStorage */,
 				3ACF06BF2959FA01004DD16D /* View */,
 				3ACF06AC2959E566004DD16D /* Constants */,
 				3ACF06A32959E2B0004DD16D /* CoreData */,
@@ -173,7 +188,6 @@
 				3ACF06882959E130004DD16D /* MainController.swift */,
 				3ACF06AE2959E607004DD16D /* MainView.swift */,
 				3ACF06B42959EE69004DD16D /* MainTableCell.swift */,
-				3ACF06B02959E62C004DD16D /* MainModel.swift */,
 			);
 			path = MainScreen;
 			sourceTree = "<group>";
@@ -181,8 +195,8 @@
 		3ACF06BA2959F932004DD16D /* NoteScreen */ = {
 			isa = PBXGroup;
 			children = (
-				3ACF06BB2959F968004DD16D /* NoteView.swift */,
 				3ACF06BD2959F979004DD16D /* NoteController.swift */,
+				3ACF06BB2959F968004DD16D /* NoteView.swift */,
 			);
 			path = NoteScreen;
 			sourceTree = "<group>";
@@ -193,6 +207,15 @@
 				3ACF06C22959FA4E004DD16D /* SuperView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		3ACF06C4295C7530004DD16D /* LocalStorage */ = {
+			isa = PBXGroup;
+			children = (
+				3ACF06C5295C7673004DD16D /* Note.swift */,
+				3ACF06C9295C9006004DD16D /* NoteModelUD.swift */,
+			);
+			path = LocalStorage;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -273,14 +296,19 @@
 			files = (
 				3ACF06B92959F885004DD16D /* Images.swift in Sources */,
 				3ACF06AB2959E55A004DD16D /* Fonts.swift in Sources */,
+				3ACF06D0295CA475004DD16D /* NoteDataManager.swift in Sources */,
 				3ACF06BC2959F968004DD16D /* NoteView.swift in Sources */,
 				3ACF06AF2959E607004DD16D /* MainView.swift in Sources */,
 				3ACF06892959E130004DD16D /* MainController.swift in Sources */,
 				3ACF06A92959E521004DD16D /* Colors.swift in Sources */,
 				3ACF06A72959E511004DD16D /* Localization.swift in Sources */,
+				3ACF06CE295CA3C6004DD16D /* NoteModel+CoreDataProperties.swift in Sources */,
 				3ACF06BE2959F979004DD16D /* NoteController.swift in Sources */,
+				3ACF06CD295CA3C6004DD16D /* NoteModel+CoreDataClass.swift in Sources */,
 				3ACF06B52959EE69004DD16D /* MainTableCell.swift in Sources */,
 				3ACF06B12959E62C004DD16D /* MainModel.swift in Sources */,
+				3ACF06CA295C9006004DD16D /* NoteModelUD.swift in Sources */,
+				3ACF06C6295C7673004DD16D /* Note.swift in Sources */,
 				3ACF06852959E130004DD16D /* AppDelegate.swift in Sources */,
 				3ACF06872959E130004DD16D /* SceneDelegate.swift in Sources */,
 				3ACF068F2959E130004DD16D /* NotesApp.xcdatamodeld in Sources */,

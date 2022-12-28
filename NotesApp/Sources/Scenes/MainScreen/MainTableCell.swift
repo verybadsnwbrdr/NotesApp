@@ -8,15 +8,15 @@
 import UIKit
 import SnapKit
 
-class MainTableCell: UITableViewCell {
+class MainTableCell: UITableViewCell, Identifiable {
 	
 	// MARK: - Identifier
 	
-	static let identifier = "MainCell"
+	static let identifier = String(describing: MainTableCell.self)
 	
 	// MARK: - SetupCell
 	
-	public func setupCellContent(with model: MainModel) {
+	public func setupCellContent(with model: NoteModel) {
 		cellTitle.text = model.title
 		cellSubtitle.text = model.note
 	}
@@ -27,7 +27,6 @@ class MainTableCell: UITableViewCell {
 		let label = UILabel()
 		label.numberOfLines = 1
 		label.font = Fonts.systemLarge.medium
-		label.text = "Test"
 		return label
 	}()
 	
@@ -35,8 +34,16 @@ class MainTableCell: UITableViewCell {
 		let label = UILabel()
 		label.numberOfLines = 1
 		label.font = Fonts.systemMedium.regular
-		label.text = "Test1"
 		return label
+	}()
+	
+	private lazy var stack: UIStackView = {
+		let stack = UIStackView()
+		stack.axis = .vertical
+		stack.alignment = .leading
+		stack.spacing = 8
+		stack.contentMode = .center
+		return stack
 	}()
 	
 	// MARK: - Initialization
@@ -54,21 +61,17 @@ class MainTableCell: UITableViewCell {
 	// MARK: - Setup
 	
 	private func setupHierarchy() {
-		addSubview(cellTitle)
-		addSubview(cellSubtitle)
+		stack.addArrangedSubview(cellTitle)
+		stack.addArrangedSubview(cellSubtitle)
+		addSubview(stack)
 	}
 	
 	private func setupLayout() {
-		cellTitle.snp.makeConstraints { make in
-			make.left.equalTo(snp.left).offset(20)
-			make.top.equalTo(snp.top).offset(8)
-			make.right.equalTo(snp.right).offset(-20)
-		}
-		
-		cellSubtitle.snp.makeConstraints { make in
-			make.left.right.equalTo(cellTitle)
-			make.top.equalTo(cellTitle.snp.bottom).offset(8)
-			make.bottom.equalTo(snp.bottom).offset(-8)
+		stack.snp.makeConstraints { make in
+			make.centerY.equalTo(snp.centerY)
+			make.left.equalTo(snp.left).offset(22)
+			make.right.equalTo(snp.right).offset(-22)
+			make.height.equalTo(65)
 		}
 	}
 }

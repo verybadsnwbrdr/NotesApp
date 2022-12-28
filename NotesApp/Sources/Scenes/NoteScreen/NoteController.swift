@@ -11,26 +11,61 @@ class NoteController: UIViewController {
 	
 	// MARK: - Reference
 	
-//	var model: MainModel
+	var selfView: NoteView?
+	var note: NoteModel?
+	var dataManager: NoteDataManager?
+	
+	// MARK: - NavigationBarItem
+	
+	private lazy var addNoteButton: UIBarButtonItem = {
+		let button = UIBarButtonItem()
+		button.title = Localization.done.string
+		button.target = self
+		button.action = #selector(hideKeyBoard)
+		return button
+	}()
 	
 	// MARK: - LifeCycle
 	
-//	init(model: MainModel) {
-//		super.init(
-//		self.model = model
-//	}
-	
-//	required init?(coder: NSCoder) {
-//		fatalError("init(coder:) has not been implemented")
-//	}
-	
 	override func loadView() {
-		view = NoteView(controller: self)
+//		view = NoteView(controller: self)
+		selfView = NoteView(controller: self)
+		view = selfView
 	}
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-//		title = Localization.title.rawValue
-//		navigationController?.navigationBar.prefersLargeTitles = false
+		navigationItem.largeTitleDisplayMode = .never
+		navigationItem.rightBarButtonItem = addNoteButton
+		if let view = view as? NoteView {
+			view.setupView(with: note)
+		}
+	}
+}
+
+// MARK: - Actions
+
+private extension NoteController {
+	@objc func hideKeyBoard() {
+		selfView?.hideKeyBoard()
+	}
+	
+	func saveChanges() {
+		guard let updatedNote = selfView?.noteWithChanges() else { return }
+		note?.title = updatedNote.title
+		note?.note = updatedNote.note
+		dataManager?.saveContext()
+	}
+}
+
+// MARK: - TextViewDelegate
+
+extension NoteController: UITextViewDelegate, UITextFieldDelegate {
+	func textViewDidEndEditing(_ textView: UITextView) {
+		saveChanges()
+	}
+	
+	func textFieldDidEndEditing(_ textField: UITextField) {
+		saveChanges()
 	}
 }

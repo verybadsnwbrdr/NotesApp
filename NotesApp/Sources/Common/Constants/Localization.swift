@@ -9,6 +9,7 @@ import Foundation
 
 enum Localization: String {
 	case title = "Заметки"
+	case done = "Готово"
 	
 	var string: String { rawValue }
 }

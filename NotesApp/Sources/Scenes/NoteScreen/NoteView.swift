@@ -12,29 +12,42 @@ class NoteView: UIView {
 	
 	// MARK: - References
 	
-	weak var controller: UIViewController?
+	weak var controller: NoteController?
+	
+	// MARK: - SetupView
+	
+	public func setupView(with model: NoteModel?) {
+		textField.text = model?.title
+		textView.text = model?.note
+	}
 	
 	// MARK: - Elements
 	
 	private lazy var textField: UITextField = {
 		let textField = UITextField()
 		textField.textAlignment = .left
-		textField.contentVerticalAlignment = .top
+		textField.font = Fonts.systemLarge.bold
+		textField.delegate = controller
+		textField.layer.cornerRadius = 10
+		textField.backgroundColor = .white
 		return textField
 	}()
 	
-	private lazy var stack: UIStackView = {
-		let stack = UIStackView()
-		
-		return stack
+	private lazy var textView: UITextView = {
+		let textView = UITextView()
+		textView.textAlignment = .left
+		textView.font = Fonts.systemMedium.regular
+		textView.delegate = controller
+		textView.layer.cornerRadius = 10
+		return textView
 	}()
 	
 	// MARK: - Initialization
 	
-	init(controller: UIViewController) {
+	init(controller: NoteController) {
 		super.init(frame: .zero)
 		self.controller = controller
-		backgroundColor = .white
+		backgroundColor = .systemGray6
 		setupHierarchy()
 		setupLayout()
 	}
@@ -46,20 +59,35 @@ class NoteView: UIView {
 	// MARK: - Setup
 	
 	func setupHierarchy() {
-		
 		addSubview(textField)
+		addSubview(textView)
 	}
 	
 	func setupLayout() {
 		textField.snp.makeConstraints { make in
-//			make.verticalEdges.equalTo(self.safeAreaLayoutGuide).offset(-30)
-//
-//			make.bottom.equalTo(snp.bottom).offset(-10)
-//			make.edges.equalTo(self.safeAreaLayoutGuide)
-			make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(10)
-			make.bottom.equalTo(snp.bottom).offset(-20)
-			make.left.equalTo(snp.left).offset(20)
-			make.right.equalTo(snp.right).offset(-20)
+			make.left.top.equalTo(self.safeAreaLayoutGuide).offset(20)
+			make.right.equalTo(self.safeAreaLayoutGuide).offset(-20)
+			make.height.equalTo(50)
 		}
+		
+		textView.snp.makeConstraints { make in
+			make.top.equalTo(textField.snp.bottom).offset(10)
+			make.left.equalTo(self.safeAreaLayoutGuide).offset(20)
+			make.right.bottom.equalTo(self.safeAreaLayoutGuide).offset(-20)
+		}
+	}
+}
+
+// MARK: - Methods
+
+extension NoteView {
+	public func noteWithChanges() -> (title: String, note: String)? {
+		guard let title = textField.text, let note = textView.text else { return nil }
+		return (title, note)
+	}
+	
+	public func hideKeyBoard() {
+		textView.endEditing(true)
+		textField.endEditing(true)
 	}
 }

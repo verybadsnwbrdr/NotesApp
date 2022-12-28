@@ -29,7 +29,6 @@ class MainView: UIView {
 	init(controller: MainController) {
 		super.init(frame: .zero)
 		self.controller = controller
-		backgroundColor = .blue
 		setupHierarchy()
 		setupLayout()
 	}
@@ -48,5 +47,11 @@ class MainView: UIView {
 		tableView.snp.makeConstraints { make in
 			make.edges.equalTo(self)
 		}
+	}
+}
+
+extension MainView {
+	public func reloadTable() {
+		tableView.reloadData()
 	}
 }
