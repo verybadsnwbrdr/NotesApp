@@ -7,13 +7,13 @@
 
 import UIKit
 
-class MainController: UIViewController {
+final class MainController: UIViewController {
 	
 	// MARK: - Reference
 
-	var models: [NoteModel]?
-	var dataManager = NoteDataManager()
-	var selfView: MainView?
+	private var models: [NoteModel]?
+	private let dataManager = NoteDataManager.shared
+	private var subView: MainView?
 	
 	// MARK: - NavigationBarItem
 	
@@ -28,9 +28,8 @@ class MainController: UIViewController {
 	// MARK: - LifeCycle
 	
 	override func loadView() {
-//		view = MainView(controller: self)
-		selfView = MainView(controller: self)
-		view = selfView
+		subView = MainView(controller: self)
+		view = subView
 	}
 
 	override func viewDidLoad() {
@@ -42,7 +41,7 @@ class MainController: UIViewController {
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
-		selfView?.reloadTable()
+		subView?.reloadTable()
 	}
 }
 
@@ -69,11 +68,11 @@ extension MainController: UITableViewDelegate, UITableViewDataSource {
 		guard editingStyle == .delete, let model = models?[indexPath.row] else { return }
 		dataManager.deleteFromContext(note: model)
 		updateModels()
-		selfView?.reloadTable()
+		subView?.reloadTable()
 	}
 	
 	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-		75
+		Constants.tableHeight.rawValue
 	}
 }
 
@@ -89,7 +88,6 @@ private extension MainController {
 	func tapFor(_ row: Int) {
 		let viewController = NoteController()
 		viewController.note = models?[row]
-		viewController.dataManager = dataManager
 		navigationController?.pushViewController(viewController, animated: true)
 	}
 	

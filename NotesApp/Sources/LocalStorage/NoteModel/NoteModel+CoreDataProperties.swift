@@ -12,7 +12,7 @@ import CoreData
 
 extension NoteModel {
     @nonobjc public class func fetchRequest() -> NSFetchRequest<NoteModel> {
-        return NSFetchRequest<NoteModel>(entityName: "NoteModel")
+		return NSFetchRequest<NoteModel>(entityName: NoteModel.identifier)
     }
 
     @NSManaged public var title: String?
@@ -20,5 +20,4 @@ extension NoteModel {
 }
 
 extension NoteModel: Identifiable {
-
 }

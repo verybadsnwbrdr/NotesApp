@@ -7,19 +7,20 @@
 
 import UIKit
 
-class NoteController: UIViewController {
+final class NoteController: UIViewController {
 	
 	// MARK: - Reference
 	
-	var selfView: NoteView?
+	private var subView: NoteView?
 	var note: NoteModel?
-	var dataManager: NoteDataManager?
+	private let dataManager = NoteDataManager.shared
+	private var isKeyBoardHiden = true
 	
 	// MARK: - NavigationBarItem
 	
-	private lazy var addNoteButton: UIBarButtonItem = {
+	private lazy var hideKeyboardButton: UIBarButtonItem = {
 		let button = UIBarButtonItem()
-		button.title = Localization.done.string
+		button.image = Images.keyBoardDismiss.image
 		button.target = self
 		button.action = #selector(hideKeyBoard)
 		return button
@@ -28,44 +29,52 @@ class NoteController: UIViewController {
 	// MARK: - LifeCycle
 	
 	override func loadView() {
-//		view = NoteView(controller: self)
-		selfView = NoteView(controller: self)
-		view = selfView
+		subView = NoteView(controller: self)
+		view = subView
 	}
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		navigationItem.largeTitleDisplayMode = .never
-		navigationItem.rightBarButtonItem = addNoteButton
-		if let view = view as? NoteView {
-			view.setupView(with: note)
-		}
+		subView?.setupView(with: note)
 	}
 }
 
 // MARK: - Actions
 
 private extension NoteController {
+	
 	@objc func hideKeyBoard() {
-		selfView?.hideKeyBoard()
+		subView?.hideKeyBoard()
 	}
 	
 	func saveChanges() {
-		guard let updatedNote = selfView?.noteWithChanges() else { return }
+		guard let updatedNote = subView?.noteWithChanges() else { return }
 		note?.title = updatedNote.title
 		note?.note = updatedNote.note
-		dataManager?.saveContext()
+		dataManager.saveContext()
 	}
 }
 
 // MARK: - TextViewDelegate
 
 extension NoteController: UITextViewDelegate, UITextFieldDelegate {
+	
+	func textFieldDidBeginEditing(_ textField: UITextField) {
+		navigationItem.setRightBarButton(hideKeyboardButton, animated: true)
+	}
+	
 	func textViewDidEndEditing(_ textView: UITextView) {
+		navigationItem.setRightBarButton(nil, animated: true)
 		saveChanges()
+	}
+
+	func textViewDidBeginEditing(_ textView: UITextView) {
+		navigationItem.setRightBarButton(hideKeyboardButton, animated: true)
 	}
 	
 	func textFieldDidEndEditing(_ textField: UITextField) {
+		navigationItem.setRightBarButton(nil, animated: true)
 		saveChanges()
 	}
 }

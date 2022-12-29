@@ -8,11 +8,11 @@
 import UIKit
 import SnapKit
 
-class MainView: UIView {
+final class MainView: UIView {
 	
 	// MARK: - References
 	
-	weak var controller: MainController?
+	private weak var controller: MainController?
 	
 	// MARK: - Elements
 	

@@ -11,5 +11,4 @@ import CoreData
 
 @objc(NoteModel)
 public class NoteModel: NSManagedObject {
-
 }

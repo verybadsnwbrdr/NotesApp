@@ -8,11 +8,7 @@
 import UIKit
 import SnapKit
 
-class MainTableCell: UITableViewCell, Identifiable {
-	
-	// MARK: - Identifier
-	
-	static let identifier = String(describing: MainTableCell.self)
+final class MainTableCell: UITableViewCell, Identifiable {
 	
 	// MARK: - SetupCell
 	
@@ -26,7 +22,7 @@ class MainTableCell: UITableViewCell, Identifiable {
 	private lazy var cellTitle: UILabel = {
 		let label = UILabel()
 		label.numberOfLines = 1
-		label.font = Fonts.systemLarge.medium
+		label.font = Fonts.systemMedium.medium
 		return label
 	}()
 	
@@ -41,8 +37,7 @@ class MainTableCell: UITableViewCell, Identifiable {
 		let stack = UIStackView()
 		stack.axis = .vertical
 		stack.alignment = .leading
-		stack.spacing = 8
-		stack.contentMode = .center
+		stack.spacing = 4
 		return stack
 	}()
 	
@@ -69,9 +64,9 @@ class MainTableCell: UITableViewCell, Identifiable {
 	private func setupLayout() {
 		stack.snp.makeConstraints { make in
 			make.centerY.equalTo(snp.centerY)
-			make.left.equalTo(snp.left).offset(22)
-			make.right.equalTo(snp.right).offset(-22)
-			make.height.equalTo(65)
+			make.left.equalTo(snp.left).offset(Constants.horizontalPadding.rawValue)
+			make.right.equalTo(snp.right).offset(Constants.horizontalPadding.minus)
+			make.height.equalTo(Constants.textFieldHeight.rawValue)
 		}
 	}
 }

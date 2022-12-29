@@ -8,11 +8,11 @@
 import UIKit
 import SnapKit
 
-class NoteView: UIView {
+final class NoteView: UIView {
 	
 	// MARK: - References
 	
-	weak var controller: NoteController?
+	private weak var controller: NoteController?
 	
 	// MARK: - SetupView
 	
@@ -28,8 +28,11 @@ class NoteView: UIView {
 		textField.textAlignment = .left
 		textField.font = Fonts.systemLarge.bold
 		textField.delegate = controller
-		textField.layer.cornerRadius = 10
+		textField.layer.cornerRadius = Constants.topPaddingAndCornerRadius.rawValue
 		textField.backgroundColor = .white
+		textField.placeholder = Localization.placeHolder.string
+		textField.leftView = UIView(frame: Constants.textFieldViewWidth.textFieldViewFrame)
+		textField.leftViewMode = .always
 		return textField
 	}()
 	
@@ -38,7 +41,7 @@ class NoteView: UIView {
 		textView.textAlignment = .left
 		textView.font = Fonts.systemMedium.regular
 		textView.delegate = controller
-		textView.layer.cornerRadius = 10
+		textView.layer.cornerRadius = Constants.topPaddingAndCornerRadius.rawValue
 		return textView
 	}()
 	
@@ -58,22 +61,22 @@ class NoteView: UIView {
 	
 	// MARK: - Setup
 	
-	func setupHierarchy() {
+	private func setupHierarchy() {
 		addSubview(textField)
 		addSubview(textView)
 	}
 	
-	func setupLayout() {
+	private func setupLayout() {
 		textField.snp.makeConstraints { make in
-			make.left.top.equalTo(self.safeAreaLayoutGuide).offset(20)
-			make.right.equalTo(self.safeAreaLayoutGuide).offset(-20)
-			make.height.equalTo(50)
+			make.left.top.equalTo(self.safeAreaLayoutGuide).offset(Constants.horizontalPadding.rawValue)
+			make.right.equalTo(self.safeAreaLayoutGuide).offset(Constants.horizontalPadding.minus)
+			make.height.equalTo(Constants.textFieldHeight.rawValue)
 		}
 		
 		textView.snp.makeConstraints { make in
-			make.top.equalTo(textField.snp.bottom).offset(10)
-			make.left.equalTo(self.safeAreaLayoutGuide).offset(20)
-			make.right.bottom.equalTo(self.safeAreaLayoutGuide).offset(-20)
+			make.top.equalTo(textField.snp.bottom).offset(Constants.topPaddingAndCornerRadius.rawValue)
+			make.left.equalTo(self.safeAreaLayoutGuide).offset(Constants.horizontalPadding.rawValue)
+			make.right.bottom.equalTo(self.safeAreaLayoutGuide).offset(Constants.horizontalPadding.minus)
 		}
 	}
 }

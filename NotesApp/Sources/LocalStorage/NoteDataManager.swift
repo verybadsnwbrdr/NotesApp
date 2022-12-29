@@ -10,6 +10,11 @@ import CoreData
 
 final class NoteDataManager {
 	
+	// MARK: - Singleton
+	
+	static let shared = NoteDataManager.init()
+	private init() { }
+	
 	// MARK: - Properties
 	
 	private lazy var persistentContainer: NSPersistentContainer = {
@@ -25,16 +30,20 @@ final class NoteDataManager {
 	private let fetchRequest = NoteModel.fetchRequest()
 	private lazy var context: NSManagedObjectContext = { persistentContainer.viewContext }()
 	
-	// MARK: - CoreData
+}
+
+// MARK: - Public Methods
+
+extension NoteDataManager {
 	
-	func addModel() {
+	public func addModel() {
 		let managedObject = NoteModel(context: context)
 		managedObject.title = String()
 		managedObject.note = String()
 		saveContext()
 	}
 	
-	func saveContext() {
+	public func saveContext() {
 		guard context.hasChanges else { return }
 		do {
 			try context.save()
@@ -44,17 +53,17 @@ final class NoteDataManager {
 		}
 	}
 
-	func deleteFromContext(note: NoteModel) {
+	public func deleteFromContext(note: NoteModel) {
 		context.delete(note)
 		saveContext()
 	}
 	
-	func getModels() -> [NoteModel] {
+	public func getModels() -> [NoteModel] {
 		guard let models = try? context.fetch(fetchRequest) else { return [] }
 		return models
 	}
 	
-	func updateModel(for note: NoteModel) {
+	public func updateModel(for note: NoteModel) {
 		let objectToUpdate = context.object(with: note.objectID) as? NoteModel
 		objectToUpdate?.title = note.title
 		objectToUpdate?.note = note.note
